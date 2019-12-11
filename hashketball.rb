@@ -10,7 +10,7 @@ def game_hash
   			number: 0, 
   			shoe: 16, 
   			points: 22,
-  			reounds: 12,
+  			rebounds: 12,
   			assists: 12,
   			steals: 3,
   			blocks: 1,
@@ -20,7 +20,7 @@ def game_hash
   			number: 30, 
   			shoe: 14, 
   			points: 12,
-  			reounds: 12,
+  			rebounds: 12,
   			assists: 12,
   			steals: 12,
   			blocks: 12,
@@ -30,7 +30,7 @@ def game_hash
   			number: 11, 
   			shoe: 17, 
   			points: 17,
-  			reounds: 19,
+  			rebounds: 19,
   			assists: 10,
   			steals: 3,
   			blocks: 1,
@@ -40,7 +40,7 @@ def game_hash
   			number: 1, 
   			shoe: 19, 
   			points: 26,
-  			reounds: 11,
+  			rebounds: 11,
   			assists: 6,
   			steals: 3,
   			blocks: 8,
@@ -50,7 +50,7 @@ def game_hash
   			number: 31, 
   			shoe: 15, 
   			points: 19,
-  			reounds: 2,
+  			rebounds: 2,
   			assists: 2,
   			steals: 4,
   			blocks: 11,
@@ -66,7 +66,7 @@ def game_hash
   			number: 4, 
   			shoe: 18, 
   			points: 10,
-  			reounds: 1,
+  			rebounds: 1,
   			assists: 1,
   			steals: 2,
   			blocks: 7,
@@ -76,7 +76,7 @@ def game_hash
   			number: 0, 
   			shoe: 16, 
   			points: 12,
-  			reounds: 4,
+  			rebounds: 4,
   			assists: 7,
   			steals: 22,
   			blocks: 15,
@@ -86,7 +86,7 @@ def game_hash
   			number: 2, 
   			shoe: 14, 
   			points: 24,
-  			reounds: 12,
+  			rebounds: 12,
   			assists: 12,
   			steals: 4,
   			blocks: 5,
@@ -96,7 +96,7 @@ def game_hash
   			number: 8, 
   			shoe: 15, 
   			points: 33,
-  			reounds: 3,
+  			rebounds: 3,
   			assists: 2,
   			steals: 1,
   			blocks: 1,
@@ -106,7 +106,7 @@ def game_hash
   			number: 33, 
   			shoe: 15, 
   			points: 6,
-  			reounds: 12,
+  			rebounds: 12,
   			assists: 12,
   			steals: 7,
   			blocks: 5,
@@ -179,4 +179,38 @@ def player_numbers(team_name)
 		end 
 	end 
  	numbers
+end
+
+def player_stats(player_name)
+  new_hash = {}
+  game_hash.each do |place,team|
+    team.each do |attributes,value|
+      if attributes == :players
+        value.each do |player|
+          if player[:player_name] == player_name
+             new_hash = player.delete_if do |k,v|
+               k == :player_name
+             end 
+          end 
+        end 
+      end 
+    end 
+  end
+  return new_hash
+end 
+
+def big_shoe_rebounds
+#find the player with the largest shoe size
+#return that player's rebounds
+big_shoe = 0 
+rebounds = 0 
+  game_hash.each do |place,team|
+   team[:players].each do |player|
+     if player[:shoe] > big_shoe
+       big_shoe = player[:shoe]
+       rebounds = player[:rebounds]
+     end 
+   end 
+  end 
+  rebounds
 end
